@@ -10,12 +10,12 @@ import Container from "../../components/Grid/Container";
 export default class Login extends React.Component {
     public render() {
         return (
-            <Container>
+            <Container center='true'>
                 <Card>
                     <Title>Iniciar Sesión</Title>
                     <Input placeholder="Correo" label="Correo"/>
                     <Input placeholder="Contraseña" label="Contraseña"/>
-                    <Button block={true}>Enviar</Button>
+                    <Button block="true" >Enviar</Button>
                     <Center>
                         <Link to='/register'>Ir a registro</Link>
                     </Center>
