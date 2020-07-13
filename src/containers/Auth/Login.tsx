@@ -1,26 +1,35 @@
 import * as React from "react";
-import { Link } from 'react-router-dom';
-import Card from "../../components/Grid/Card";
-import Title from "../../components/form/Title";
-import Input from "../../components/form/Input";
-import Button from "../../components/form/Button";
-import Center from "../../components/Align/Center";
-import Container from "../../components/Grid/Container";
+import { connect } from "react-redux";
+import { ThunkDispatch } from "redux-thunk";
 
-export default class Login extends React.Component {
+import Card from "../../components/Grid/Card";
+import Container from "../../components/Grid/Container";
+import LoginForm from '../../components/form/LoginForm'
+import Title from "../../components/form/Title";
+import { ILogin, login as loginThunk } from '../../ducks/Users';
+
+interface ILoginProps {
+    login: (a: ILogin) => void
+}
+
+class Login extends React.Component<ILoginProps> {
     public render() {
+        const { login } = this.props;
         return (
             <Container center='true'>
                 <Card>
                     <Title>Iniciar Sesión</Title>
-                    <Input placeholder="Correo" label="Correo"/>
-                    <Input placeholder="Contraseña" label="Contraseña"/>
-                    <Button block="true" >Enviar</Button>
-                    <Center>
-                        <Link to='/register'>Ir a registro</Link>
-                    </Center>
+                    <LoginForm onSubmit={ login }/>
                 </Card>
             </Container>
         );
     }
 }
+
+const mapSateToProps = ( state:any ) => state;
+
+const mapDispatchToProps = ( dispatch: ThunkDispatch<any, any, any> ) => ({
+    login: ( payload:ILogin ) => dispatch(loginThunk(payload))
+});
+
+export default connect(mapSateToProps, mapDispatchToProps)(Login);
